@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeArt — Галерея Искусства</title>
+    <style>
+        body {
+            background-color: #0b132b; /* Тёмно-синий фон */
+            color: #e0e6ed;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        nav {
+            background-color: #1c2541; /* Чуть более светлый синий для шапки */
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #3a506b;
+        }
+        nav a {
+            color: #4ea8de;
+            text-decoration: none;
+            margin-right: 15px;
+            font-weight: bold;
+        }
+        nav a:hover {
+            color: #64dfdf;
+        }
+        .logo {
+            font-size: 24px;
+            color: #64dfdf;
+            font-weight: bold;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+        .btn {
+            background-color: #3a506b;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn:hover {
+            background-color: #4ea8de;
+        }
+        .btn-danger { background-color: #d90429; }
+        .btn-danger:hover { background-color: #ef233c; }
+        .card {
+            background-color: #1c2541;
+            border: 1px solid #3a506b;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            background-color: #0b132b;
+            color: white;
+            border: 1px solid #3a506b;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="{% url 'photo_list' %}" class="logo">DeArt</a>
+        <div>
+            {% if user.is_authenticated %}
+                <a href="{% url 'photo_create' %}">+ Добавить фото</a>
+                <a href="{% url 'favorites_list' %}">★ Избранное</a>
+                <a href="{% url 'user_profile' user.username %}">{{ user.username }}</a>
+                <a href="{% url 'logout' %}" style="color: #ff6b6b;">Выйти</a>
+            {% else %}
+                <a href="{% url 'login' %}">Войти</a>
+                <a href="{% url 'register' %}">Регистрация</a>
+            {% endif %}
+        </div>
+    </nav>
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

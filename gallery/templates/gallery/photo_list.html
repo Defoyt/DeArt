@@ -1,0 +1,32 @@
+{% extends 'gallery/base.html' %}
+{% block content %}
+<h2>Лента работ</h2>
+
+<!-- Форма поиска и фильтрации -->
+<form method="get" style="display: flex; gap: 10px; margin-bottom: 25px;">
+    <input type="text" name="q" placeholder="Поиск картин по названию..." value="{{ query }}">
+    <select name="category" style="width: 200px;">
+        <option value="">Все категории</option>
+        {% for cat in categories %}
+            <option value="{{ cat.id }}">{{ cat.name }}</option>
+        {% endfor %}
+    </select>
+    <button type="submit" class="btn">Искать</button>
+</form>
+
+<!-- Карточки с фотографиями -->
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px;">
+    {% for photo in photos %}
+        <div class="card" style="text-align: center;">
+            <a href="{% url 'photo_detail' photo.pk %}">
+                <img src="{{ photo.image.url }}" alt="{{ photo.title }}" style="width: 100%; height: 200px; object-fit: cover; border-radius: 5px;">
+            </a>
+            <h3 style="margin: 10px 0 5px 0;">{{ photo.title }}</h3>
+            <p style="font-size: 14px; color: #8d99ae;">Автор: <a href="{% url 'user_profile' photo.author.username %}" style="color: #4ea8de;">{{ photo.author.username }}</a></p>
+            <p style="font-size: 13px;">👁 {{ photo.views_count }} | ❤️ {{ photo.likes.count }}</p>
+        </div>
+    {% empty %}
+        <p>Фотографии не найдены.</p>
+    {% endfor %}
+</div>
+{% endblock %}

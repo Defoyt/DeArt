@@ -1,0 +1,12 @@
+{% extends 'gallery/base.html' %}
+{% block content %}
+<div class="card" style="max-width: 500px; margin: 0 auto; text-align: center;">
+    <h2>Удаление фотографии</h2>
+    <p>Вы уверены, что хотите удалить картину <strong>«{{ photo.title }}»</strong>?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Да, удалить</button>
+        <a href="{% url 'photo_detail' photo.pk %}" class="btn">Отмена</a>
+    </form>
+</div>
+{% endblock %}

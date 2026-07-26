@@ -1,0 +1,12 @@
+{% extends 'gallery/base.html' %}
+{% block content %}
+<div class="card" style="max-width: 400px; margin: 0 auto;">
+    <h2>Вход в аккаунт</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn">Войти</button>
+    </form>
+    <p style="margin-top: 15px; font-size: 14px;">Ещё нет аккаунта? <a href="{% url 'register' %}" style="color: #4ea8de;">Зарегистрироваться</a></p>
+</div>
+{% endblock %}
